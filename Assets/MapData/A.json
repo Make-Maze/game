@@ -1,0 +1,10 @@
+{
+  "mapName": "jsonTestMap",
+  "mapCode": "ABCDEFG",
+  "blocks": [
+    // 블럭 종류, x, y
+    [ 1, 1, 1 ],
+    [ 2, 2, 2 ],
+    [ 3, 3, 3 ]
+  ]
+}
