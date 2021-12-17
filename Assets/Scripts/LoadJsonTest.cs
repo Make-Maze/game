@@ -5,11 +5,12 @@ using UnityEngine.Networking;
 
 public class LoadJsonTest : MonoBehaviour
 {
-    public MapData mapData;
+    public List<MapData> mapData = new List<MapData>();
+    public SelectMapController selectMapController;
 
-    public void loadStart()
+    public void LoadStart()
     {
-
+        selectMapController = GetComponent<SelectMapController>();
         // A non-existing page.
         StartCoroutine(GetRequest("http://127.0.0.1:8000/"));
     }
@@ -35,7 +36,8 @@ public class LoadJsonTest : MonoBehaviour
                     break;
                 case UnityWebRequest.Result.Success:
                     Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
-                    mapData = JsonUtility.FromJson<MapData>(webRequest.downloadHandler.text);
+                    mapData.Add(JsonUtility.FromJson<MapData>(webRequest.downloadHandler.text));
+                    selectMapController.CreatMapButton(mapData[mapData.Count-1]);
                     break;
             }
         }
@@ -43,7 +45,8 @@ public class LoadJsonTest : MonoBehaviour
 }
 
 [System.Serializable]
-public class MapData{
+public class MapData
+{
     public string mapName;
     public float[][] blocks;
 }
