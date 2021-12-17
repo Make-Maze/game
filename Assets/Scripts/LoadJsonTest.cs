@@ -8,9 +8,13 @@ public class LoadJsonTest : MonoBehaviour
     public List<MapData> mapData = new List<MapData>();
     public SelectMapController selectMapController;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void LoadStart()
     {
-        selectMapController = GetComponent<SelectMapController>();
         // A non-existing page.
         StartCoroutine(GetRequest("http://127.0.0.1:8000/"));
     }
@@ -48,5 +52,6 @@ public class LoadJsonTest : MonoBehaviour
 public class MapData
 {
     public string mapName;
+    public string mapCode;
     public float[][] blocks;
 }

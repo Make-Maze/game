@@ -12,29 +12,34 @@ public class MenuManager : MonoBehaviour
     public GameObject normalWall;
     public GameObject invisibleWall;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void LoginButton()
     {
         LoginPanel.SetActive(false);
         PlayPanel.SetActive(true);
     }
 
-    public void StartButton(MapData mapData)
+    public void StartButton(/*MapData mapData*/)
     {
         SceneManager.LoadScene("PlaySceneEx");
-        for (int i = 0; i < mapData.blocks.Length; i++)
-        {
-            GameObject Wall = null;
-            switch (mapData.blocks[i][0])
-            {
-                case 1:
-                    Wall = normalWall;
-                    break;
-                case 2:
-                    Wall = invisibleWall;
-                    break;
-            }
-            Instantiate(Wall, new Vector2(mapData.blocks[i][1], mapData.blocks[i][2]), Quaternion.identity);
-        }
+        //for (int i = 0; i < mapData.blocks.Length; i++)
+        //{
+        //    GameObject Wall = null;
+        //    switch (mapData.blocks[i][0])
+        //    {
+        //        case 1:
+        //            Wall = normalWall;
+        //            break;
+        //        case 2:
+        //            Wall = invisibleWall;
+        //            break;
+        //    }
+        //    Instantiate(Wall, new Vector2(mapData.blocks[i][1], mapData.blocks[i][2]), Quaternion.identity);
+        //}
     }
 
     public void MapSelectButton()
