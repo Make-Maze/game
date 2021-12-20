@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class LoadJsonTest : MonoBehaviour
 {
-    public List<MapData> mapData = new List<MapData>();
+    public static List<MapData> mapData = new List<MapData>();
     public SelectMapController selectMapController;
 
     private void Awake()
@@ -41,7 +41,7 @@ public class LoadJsonTest : MonoBehaviour
                 case UnityWebRequest.Result.Success:
                     Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
                     mapData.Add(JsonUtility.FromJson<MapData>(webRequest.downloadHandler.text));
-                    selectMapController.CreatMapButton(mapData[mapData.Count-1]);
+                    selectMapController.CreatMapButton();
                     break;
             }
         }

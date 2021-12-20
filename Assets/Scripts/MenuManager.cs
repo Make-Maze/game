@@ -23,7 +23,7 @@ public class MenuManager : MonoBehaviour
         PlayPanel.SetActive(true);
     }
 
-    public void StartButton(/*MapData mapData*/)
+    public void StartButton()
     {
         SceneManager.LoadScene("PlaySceneEx");
         //for (int i = 0; i < mapData.blocks.Length; i++)
