@@ -25,7 +25,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadScene("PlaySceneEx");
+        SceneManager.LoadScene("PlayScene");
         //for (int i = 0; i < mapData.blocks.Length; i++)
         //{
         //    GameObject Wall = null;
