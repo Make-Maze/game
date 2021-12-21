@@ -15,6 +15,7 @@ public class SelectMapController : MonoBehaviour
     private List<MapData> mapData = LoadJsonTest.mapData;
     public float width = 50f;
     public float height = 900f;
+    public int mapCount = 0;
 
     private void Awake()
     {
@@ -24,8 +25,7 @@ public class SelectMapController : MonoBehaviour
 
     public void CreatMapButton()
     {
-        //mapsValue++;
-        for (int i = 0; i < mapData.Count; i++)
+        for (int i = mapCount; i < mapData.Count; i++)
         {
             temp = Instantiate(MapButton, new Vector3(0, 0, 0), Quaternion.identity);
             temp.name = mapData[i].mapName;
@@ -36,6 +36,7 @@ public class SelectMapController : MonoBehaviour
                 nowMapButtons.transform.SetParent(GameObject.Find("Content").transform);
             }
             temp.transform.SetParent(nowMapButtons.transform);
+            mapCount++;
         }
         //scrollRect.content.sizeDelta = new Vector2(width, height);
     }
