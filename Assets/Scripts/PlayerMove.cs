@@ -6,7 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     private float moveX;
     private float moveY;
-    public float moveSpeed;
+    public float moveSpeed=5f;
     public float xLimitSize;
     private float yLimitSize;
 
@@ -14,6 +14,7 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         LimitMove();
+        Debug.Log(moveSpeed);
     }
 
     void Move()
@@ -38,5 +39,18 @@ public class PlayerMove : MonoBehaviour
         else if (pos.y > yLimitSize)
             pos.y = yLimitSize;
         transform.position = Camera.main.ViewportToWorldPoint(pos);
+    }
+
+    public void IncreaseSpeed(float plusSpeed)
+    {
+        moveSpeed += plusSpeed;
+        StartCoroutine(DecreaseSpeed(plusSpeed));
+    }
+
+
+    IEnumerator DecreaseSpeed(float minusSpeed)
+    {
+        yield return new WaitForSeconds(5);
+        moveSpeed -= minusSpeed;
     }
 }
