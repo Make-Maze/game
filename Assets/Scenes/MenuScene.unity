@@ -170,8 +170,6 @@ MonoBehaviour:
   settingScreen: {fileID: 1485097760}
   LoginPanel: {fileID: 659164857}
   PlayPanel: {fileID: 1253779265}
-  normalWall: {fileID: 0}
-  invisibleWall: {fileID: 0}
 --- !u!1 &659164857 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7324901687713877024, guid: 2ab5a1571bde5ac47b5ed977b0da8a75, type: 3}
@@ -600,75 +598,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1855788747}
   m_CullTransparentMesh: 1
---- !u!1001 &246643441890152842
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2432648287333781473, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432648287333781473, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 497.95615
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432648287333781473, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1599.8005
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432648287333781473, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.977607
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432648287333781473, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432648287333781473, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432648287333781473, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432648287333781473, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432648287333781473, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432648287333781473, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432648287333781473, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432648287333781474, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: PlayPanel
-      value: 
-      objectReference: {fileID: 1253779265}
-    - target: {fileID: 2432648287333781474, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: LoginPanel
-      value: 
-      objectReference: {fileID: 659164857}
-    - target: {fileID: 2432648287333781474, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: settingScreen
-      value: 
-      objectReference: {fileID: 1485097760}
-    - target: {fileID: 2432648287333781475, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-      propertyPath: m_Name
-      value: GameManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
 --- !u!1001 &7296585435300057600
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,38 +1,53 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpringShoes : MonoBehaviour
 {
-    RaycastHit2D upHit;
-    RaycastHit2D leftHit;
-    RaycastHit2D rightHit;
-    RaycastHit2D downHit;
-    GameObject closestWall;
-    float maxDistance = 2f;
+    Vector2 size = new Vector2(3, 3);
+    public LayerMask Wall;
+    float closestDistance;
+    Vector2 nowOffset;
+    PlayerMove playerMove;
+    Transform player;
 
-    void Start()
+    int playerLayer, wallLayer;
+
+    private void Awake()
     {
-        upHit = GetComponent<RaycastHit2D>();
-        leftHit = GetComponent<RaycastHit2D>();
-        rightHit = GetComponent<RaycastHit2D>();
-        downHit = GetComponent<RaycastHit2D>();
+        playerMove = GetComponent<PlayerMove>();
     }
 
-    void useSpringShoes()
+    private void Start()
     {
-        Debug.DrawRay(transform.position, Vector2.up * maxDistance, Color.cyan);
-        upHit = Physics2D.Raycast(transform.position, Vector2.up, maxDistance);
+        playerLayer = LayerMask.NameToLayer("Player");
+        wallLayer = LayerMask.NameToLayer("Wall");
+        player = GameObject.Find("Player").transform.GetComponent<Transform>();
+    }
 
-        Debug.DrawRay(transform.position, Vector2.left * maxDistance, Color.cyan);
-        leftHit = Physics2D.Raycast(transform.position, Vector2.left, maxDistance);
-
-        Debug.DrawRay(transform.position, Vector2.right * maxDistance, Color.cyan);
-        rightHit = Physics2D.Raycast(transform.position, Vector2.right, maxDistance);
-
-        Debug.DrawRay(transform.position, Vector2.down * maxDistance, Color.cyan);
-        downHit = Physics2D.Raycast(transform.position, Vector2.down, maxDistance);
-
-        upHit.transform.position;
+    public void useSpringShoes()
+    {
+        if (Physics2D.OverlapBoxAll(player.position, size, 0, Wall).Length != 0)
+        {
+            Transform closestWall = null;
+            Collider2D[] hit = Physics2D.OverlapBoxAll(player.position, size, 0, Wall);
+            Transform walls = GetComponent<Transform>();
+            for (int i = 0; i < hit.Length; i++)
+            {
+                walls = hit[i].GetComponent<Transform>();
+                nowOffset = (player.position - walls.transform.position);
+                float nowWallDistance = nowOffset.sqrMagnitude;
+                if (i == 0 || (nowWallDistance < closestDistance))
+                {
+                    closestDistance = nowWallDistance;
+                    closestWall = walls.GetComponent<Transform>();
+                }
+            }
+            Debug.Log(closestWall.name);
+            Physics2D.IgnoreLayerCollision(playerLayer, wallLayer, true);
+            player.position = Vector2.MoveTowards(player.position, (closestWall.position + (closestWall.position - player.position)), 120 * Time.deltaTime);
+            Physics2D.IgnoreLayerCollision(playerLayer, wallLayer, false);
+        }
     }
 }
