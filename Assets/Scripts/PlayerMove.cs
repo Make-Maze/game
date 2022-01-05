@@ -7,19 +7,14 @@ public class PlayerMove : MonoBehaviour
     private float moveX;
     private float moveY;
     public float moveSpeed=5f;
+    public GameObject gameOverScreen;
 
-    private void FixedUpdate()
-    {
-        Move();
-        Debug.Log(moveSpeed);
-    }
-
-    void Move()
+    public void Move(Vector2 moveVec)
     {
 
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
-        Vector2 vec = new Vector2(moveX, moveY).normalized * moveSpeed * Time.deltaTime;
+        Vector2 vec = moveVec * moveSpeed * Time.deltaTime;
         transform.Translate(vec);
     }
 
@@ -27,6 +22,13 @@ public class PlayerMove : MonoBehaviour
     {
         moveSpeed += plusSpeed;
         StartCoroutine(DecreaseSpeed(plusSpeed));
+    }
+
+    public void GameOver()
+    {
+        Destroy(gameObject);
+        Instantiate(gameOverScreen);
+        //gameOverScreen.SetActive(true);
     }
 
 

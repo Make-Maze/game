@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5719880510562044769}
   - component: {fileID: 5719880510562044768}
   - component: {fileID: 5719880510562044775}
+  - component: {fileID: -2248793863965265960}
   m_Layer: 5
   m_Name: MapButton
   m_TagString: Untagged
@@ -122,9 +123,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2432648287333781474, guid: 52920438ecd41354b8411d61d5c3c01e, type: 3}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: StartButton
+      - m_Target: {fileID: 57461002005042859, guid: 9c88f1ef4a383944887e45b85843ad0d, type: 3}
+        m_TargetAssemblyTypeName: CreateMap, Assembly-CSharp
+        m_MethodName: createMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -134,6 +135,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-2248793863965265960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5719880510562044773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25427711127aea24ca6975253d3792bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5719880510993749247
 GameObject:
   m_ObjectHideFlags: 0

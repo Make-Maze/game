@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 410074440}
   m_Layer: 8
   m_Name: Spike
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,3 +146,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 0}
+  playerMove: {fileID: 0}

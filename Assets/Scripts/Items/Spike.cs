@@ -6,21 +6,24 @@ public class Spike : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
     public GameObject gameOverScreen;
-    private GameObject player;
+    public PlayerMove playerMove;
 
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        player = GameObject.Find("Player");
+    }
+
+    private void Start()
+    {
+        playerMove = GameObject.Find("Player").GetComponent<PlayerMove>();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (spriteRenderer.sprite.name == "Spike_Up")
         {
-            Destroy(player);
-            gameOverScreen.SetActive(true);
+            playerMove.GameOver();
         }
     }
 }

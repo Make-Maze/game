@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SelectMapController : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class SelectMapController : MonoBehaviour
     public GameObject MapButtons;
     public GameObject nowMapButtons;
     public GameObject temp;
-    private List<MapData> mapData = LoadJsonTest.mapData;
+    private List<MapData> mapData = LoadJson.mapData;
+    public GameObject addMapPanel;
     public float width = 50f;
     public float height = 900f;
     public int mapCount = 0;
@@ -20,6 +22,9 @@ public class SelectMapController : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        Debug.Log(mapData.Count);
+        Debug.Log("제발 살아있다고 말해줘");
+        if(mapData.Count!=0)
         CreatMapButton();
     }
 
@@ -38,6 +43,19 @@ public class SelectMapController : MonoBehaviour
             temp.transform.SetParent(nowMapButtons.transform);
             mapCount++;
         }
-        //scrollRect.content.sizeDelta = new Vector2(width, height);
+    }
+
+    public void addMapButton()
+    {
+        if (addMapPanel != false)
+        {
+            addMapPanel.SetActive(true);
+        }
+    }
+
+    public void closeAddMapButton()
+    {
+        addMapPanel.SetActive(false);
+        SceneManager.LoadScene("MapSelectScene");
     }
 }

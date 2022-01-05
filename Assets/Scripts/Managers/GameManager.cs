@@ -5,12 +5,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject Player;
-    public Transform StartPoint;
+    public new Vector2 StartPoint;
 
     public void Awake()
     {
-        StartPoint = GameObject.Find("StartPoint").transform;
-        StartPoint.GetComponent<Transform>();
-        Instantiate(Player, StartPoint.position, Quaternion.identity).name="Player";
+        StartPoint = new Vector2(0.5f, 38.5f);
+        Instantiate(Player, StartPoint, Quaternion.identity).name = "Player";
     }
+
+
 }
