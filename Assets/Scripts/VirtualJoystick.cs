@@ -19,7 +19,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private void Awake()
     {
-        rectTransform = new Vector2(726, 645);
+        rectTransform = new Vector2(165,140);
     }
 
     private void Start()
@@ -52,6 +52,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void ControlJoystickLever(PointerEventData eventData)
     {
         var inputDir = eventData.position - rectTransform;
+        Debug.Log(inputDir);
         var clampedDir = inputDir.magnitude < stickRange ? inputDir : inputDir.normalized * stickRange;
         stick.anchoredPosition = clampedDir;
         inputVector = clampedDir / stickRange;

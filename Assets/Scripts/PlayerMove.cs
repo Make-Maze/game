@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     private float moveX;
     private float moveY;
+    public float originalSpeed = 5f;
     public float moveSpeed=5f;
     public GameObject gameOverScreen;
 
@@ -20,8 +21,11 @@ public class PlayerMove : MonoBehaviour
 
     public void IncreaseSpeed(float plusSpeed)
     {
+        if (moveSpeed == originalSpeed)
+        {
         moveSpeed += plusSpeed;
         StartCoroutine(DecreaseSpeed(plusSpeed));
+        }
     }
 
     public void GameOver()

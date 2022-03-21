@@ -13,7 +13,10 @@ public class SpeedPotion : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        playerMove.IncreaseSpeed(2);
-        Destroy(gameObject);
+        if (playerMove.moveSpeed == playerMove.originalSpeed)
+        {
+            playerMove.IncreaseSpeed(2);
+            Destroy(gameObject);
+        }
     }
 }
