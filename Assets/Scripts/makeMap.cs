@@ -4,7 +4,18 @@ using UnityEngine;
 
 public class makeMap : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private makeMap instance;
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        instance = this;
+        DontDestroyOnLoad(this);
+    }
+
     void Start()
     {
         CreateMap cm = GameObject.Find("MapMaker").GetComponent<CreateMap>();
