@@ -7,6 +7,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 {
     [SerializeField]
     private RectTransform stick;
+    private RectTransform rect;
     private Vector2 rectTransform;
 
     [SerializeField, Range(10f, 150f)]
@@ -19,7 +20,8 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private void Awake()
     {
-        rectTransform = new Vector2(165,140);
+        rect = GetComponent<RectTransform>();
+        rectTransform = rect.position;
     }
 
     private void Start()
