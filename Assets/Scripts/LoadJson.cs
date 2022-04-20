@@ -12,7 +12,7 @@ public class LoadJson : MonoBehaviour
     public Canvas canvas;
     public CreateMap createMap;
     public MapData mapdata;
-    public string inputMapID;
+    public string PlayerEMail;
 
     private void Awake()
     {
@@ -30,12 +30,9 @@ public class LoadJson : MonoBehaviour
 
     public void LoadStart()
     {
-        // A non-existing page.
-        Debug.Log("asdfadsf");
-        Debug.Log(inputMapID);
-        Debug.Log("http://192.168.0.32:8888/map1/" + inputMapID);
-        //string requestMapID = "http://127.0.0.1:8000/";
-        string requestMapID = "http://192.168.0.32:8888/map1/" + inputMapID;
+        Debug.Log(PlayerEMail);
+        Debug.Log("http://13.125.40.125:8080/member/game/" + PlayerEMail);
+        string requestMapID = "http://13.125.40.125:8080/member/game/" + PlayerEMail;
         Debug.Log(requestMapID);
         StartCoroutine(GetRequest(requestMapID));
     }

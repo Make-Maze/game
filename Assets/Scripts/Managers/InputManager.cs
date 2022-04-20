@@ -17,6 +17,6 @@ public class InputManager : MonoBehaviour
     public void ValueChanged(string text)
     {
         Debug.Log(text);
-        loadJson.inputMapID=text;
+        loadJson.PlayerEMail=text;
     }
 }
