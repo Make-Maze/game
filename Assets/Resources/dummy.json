@@ -1,0 +1,34 @@
+{
+  "maps": [
+    {
+      "mapId": 1,
+      "mapName": "Mapname",
+      "mapCode": "kjEWd5sn",
+      "img": "https://lh3.googleusercontent.com/a-/AOh14GisPNYRyRDuybiMulo0WpzWoaG283GBbV_UjvRe=s96-c",
+      "userName": "백승민"
+    },
+    {
+      "mapId": 2,
+      "mapName": "Mapname",
+      "mapCode": "kjEWd5sn",
+      "img": "https://lh3.googleusercontent.com/a-/AOh14GisPNYRyRDuybiMulo0WpzWoaG283GBbV_UjvRe=s96-c",
+      "userName": "양시준"
+    }
+  ],
+  "likes": [
+    {
+      "mapId": 1,
+      "mapName": "Mapname",
+      "mapCode": "kjEWd5sn",
+      "img": "https://lh3.googleusercontent.com/a-/AOh14GisPNYRyRDuybiMulo0WpzWoaG283GBbV_UjvRe=s96-c",
+      "userName": "양시준"
+    },
+    {
+      "mapId": 2,
+      "mapName": "Mapname",
+      "mapCode": "kjEWd5sn",
+      "img": "https://lh3.googleusercontent.com/a-/AOh14GisPNYRyRDuybiMulo0WpzWoaG283GBbV_UjvRe=s96-c",
+      "userName": "양시준"
+    }
+  ]
+}

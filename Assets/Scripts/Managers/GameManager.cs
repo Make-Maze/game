@@ -7,7 +7,12 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public new Vector2 StartPoint;
 
-    private GameManager instance;
+    public static GameManager instance;
+
+    public Dictionary<int, MapData> mapDataDict = new Dictionary<int, MapData>();
+    public Dictionary<int, MapData> likesDataDict = new Dictionary<int, MapData>();
+
+    public List<Content> content = new List<Content>();
 
     void Awake()
     {
