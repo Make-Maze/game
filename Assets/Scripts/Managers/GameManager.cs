@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public Dictionary<int, MapData> mapDataDict = new Dictionary<int, MapData>();
     public Dictionary<int, MapData> likesDataDict = new Dictionary<int, MapData>();
 
-    public List<Content> content = new List<Content>();
+    public List<Block> Blocks = new List<Block>();
 
     void Awake()
     {

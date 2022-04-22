@@ -122,15 +122,39 @@ public class LoadJson : MonoBehaviour
         }*/
     }
 
-    IEnumerator GetRequest_Content(string url)
+    IEnumerator GetRequest_Content(int mapId)
     {
-        UnityWebRequest handler = UnityWebRequest.Get(url);
+        UnityWebRequest www = UnityWebRequest.Get("http://13.125.40.125:8080/map/getMap/" + mapId);
+        yield return www.Send();
 
-        string temp = handler.ToString();
+        string a = www.downloadHandler.text;
+
+        a = a.Replace("\\", "");
+        Debug.Log(a);
 
         JObject jObj = new JObject();
 
-        jObj = JObject.Parse(temp);
+        jObj = JObject.Parse(a);
+
+        JObject jSelectMap = new JObject();
+
+        foreach (KeyValuePair<string, JToken> i in jObj)
+        {
+            jSelectMap = jObj[i.Key].ToObject<JObject>();
+        }
+
+        JArray jBlockAry = new JArray();
+        jBlockAry = JArray.Parse(jSelectMap["block"].ToString());
+        foreach (JObject value in jBlockAry)
+        {
+            Block block = new Block();
+
+            block.SetJsonData(jSelectMap["mapId"].Value<string>(), value);
+
+            Debug.Log(block.kind);
+
+            Blocks.Add(block);
+        }
 
         yield return null;
     }
@@ -143,15 +167,26 @@ public class LoadJson : MonoBehaviour
 }
 
 [System.Serializable]
-public class Content : TableBase
+public class Block : TableBase
 {
+    public int mapId;
     public int kind;
     public float x;
     public float y;
     public float x2;
     public float y2;
 
+    public override void SetJsonData(string key, JObject info)
+    {
+        base.SetJsonData(key, info);
 
+        mapId = Int32.Parse(key);
+        kind = info["kind"].Value<int>();
+        x = info["x"].Value<float>();
+            y = info["y"].Value<float>();
+        x2 = info["x2"].Value<float>();
+        y2 = info["y2"].Value<float>();
+    }
 }
 [System.Serializable]
 public class MapData : TableBase
@@ -177,6 +212,10 @@ public class MapData : TableBase
 public class TableBase
 {
     public virtual void SetJsonData(JObject info)
+    {
+
+    }
+    public virtual void SetJsonData(string key, JObject info)
     {
 
     }
