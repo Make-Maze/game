@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject Player;
-    public new Vector2 StartPoint;
+    public string PlayerEmail = null;
 
     public static GameManager instance;
 
@@ -22,12 +21,5 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this);
-
-        StartPoint = new Vector2(0.5f, 38.5f);
-        Instantiate(Player, StartPoint, Quaternion.identity).name = "Player";
-
     }
-
-
-
 }

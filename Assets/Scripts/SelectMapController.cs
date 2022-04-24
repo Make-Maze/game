@@ -7,42 +7,89 @@ using UnityEngine.SceneManagement;
 
 public class SelectMapController : MonoBehaviour
 {
-    //public ScrollRect scrollRect;
-    // public List<GameObject> maps = new List<GameObject>();
+
     public GameObject MapButton;
     public GameObject MapButtons;
     public GameObject nowMapButtons;
     public GameObject temp;
-    private List<MapData> mapData = LoadJson.mapData;
     public GameObject addMapPanel;
+    public GameObject LikedMaps;
+    public GameObject MyMaps;
     public float width = 50f;
     public float height = 900f;
     public int mapCount = 0;
 
+    public int btnCnt = 0;
+
+    public static SelectMapController instance;
+
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        Debug.Log(mapData.Count);
-        Debug.Log("제발 살아있다고 말해줘");
-        if(mapData.Count!=0)
-        CreatMapButton();
+        instance = this;
     }
 
-    public void CreatMapButton()
+    public void CreatLikeMapButton()
     {
-        for (int i = mapCount; i < mapData.Count; i++)
+        if (GameManager.instance.likesDataDict.Count != 0)
         {
-            temp = Instantiate(MapButton, new Vector3(0, 0, 0), Quaternion.identity);
-            temp.name = mapData[i].mapName;
-            temp.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = mapData[i].mapName;
-            if (((i + 1) % 3) == 1)
+            for (int i = 0; i < 100; i++)
             {
-                nowMapButtons = Instantiate(MapButtons, new Vector3(0, 0, 0), Quaternion.identity);
-                nowMapButtons.transform.SetParent(GameObject.Find("Content").transform);
+                if (GameManager.instance.likesDataDict.ContainsKey(i))
+                {
+                    btnCnt++;
+                    temp = Instantiate(MapButton, new Vector3(0, 0, 0), Quaternion.identity);
+                    temp.name = GameManager.instance.likesDataDict[i].mapName;
+                    temp.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GameManager.instance.likesDataDict[i].mapName;
+                    temp.GetComponent<ButtonMapData>().mapData = GameManager.instance.likesDataDict[i];
+                    if ((btnCnt % 3) == 1)
+                    {
+                        nowMapButtons = Instantiate(MapButtons, new Vector3(0, 0, 0), Quaternion.identity);
+                        nowMapButtons.transform.SetParent(GameObject.Find("LikedMaps").transform);
+                    }
+                    temp.transform.SetParent(nowMapButtons.transform);
+                }
             }
-            temp.transform.SetParent(nowMapButtons.transform);
-            mapCount++;
+            btnCnt = 0;
         }
+    }
+
+    public void CreateMyMapButton()
+    {
+        if (GameManager.instance.mapDataDict.Count != 0)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (GameManager.instance.mapDataDict.ContainsKey(i))
+                {
+                    btnCnt++;
+                    temp = Instantiate(MapButton, new Vector3(0, 0, 0), Quaternion.identity);
+                    temp.name = GameManager.instance.mapDataDict[i].mapName;
+                    temp.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GameManager.instance.mapDataDict[i].mapName;
+                    temp.GetComponent<ButtonMapData>().mapData = GameManager.instance.mapDataDict[i];
+                    if ((btnCnt % 3) == 1)
+                    {
+                        Debug.Log("ㅁㅇㄴㄹ");
+                        nowMapButtons = Instantiate(MapButtons, new Vector3(0, 0, 0), Quaternion.identity);
+                        nowMapButtons.transform.SetParent(GameObject.Find("MyMaps").transform);
+                    }
+                    temp.transform.SetParent(nowMapButtons.transform);
+                }
+            }
+            btnCnt = 0;
+        }
+        MyMaps.SetActive(false);
+    }
+
+    public void ShowMyMapButton()
+    {
+        MyMaps.SetActive(true);
+        LikedMaps.SetActive(false);
+    }
+
+    public void ShowLikedMapButton()
+    {
+        LikedMaps.SetActive(true);
+        MyMaps.SetActive(false);
     }
 
     public void addMapButton()

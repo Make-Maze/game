@@ -54,7 +54,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void ControlJoystickLever(PointerEventData eventData)
     {
         var inputDir = eventData.position - rectTransform;
-        Debug.Log(inputDir);
+        //Debug.Log(inputDir);
         var clampedDir = inputDir.magnitude < stickRange ? inputDir : inputDir.normalized * stickRange;
         stick.anchoredPosition = clampedDir;
         inputVector = clampedDir / stickRange;
@@ -70,7 +70,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (isInput&&playerMove!=null)
         {
-            Debug.Log(inputVector.x + "/" + inputVector.y);
+            //Debug.Log(inputVector.x + "/" + inputVector.y);
             playerMove.Move(inputVector);
         }
     }

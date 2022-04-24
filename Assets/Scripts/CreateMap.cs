@@ -9,7 +9,6 @@ public class CreateMap : MonoBehaviour
 {
     public Transform creatingObject;
     public GameObject[] gameObjects = new GameObject[100];
-    public MapData mapData;
 
     private void Awake()
     {
@@ -18,7 +17,7 @@ public class CreateMap : MonoBehaviour
 
     public void clickButton(MapData mapData)
     {
-        this.mapData = mapData;
+        StartCoroutine(LoadJson.instance.GetRequest_Content(mapData.mapId));
         SceneManager.LoadScene("PlayScene");
     }
 }

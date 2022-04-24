@@ -11,48 +11,49 @@ using System;
 
 public class LoadJson : MonoBehaviour
 {
-    public static List<MapData> mapData = new List<MapData>();
-    public SelectMapController selectMapController;
-    public Canvas canvas;
-    public CreateMap createMap;
     public MapData mapdata;
-    public string PlayerEMail;
 
-    public User user =  new User();
+    public User user = new User();
+
+    public static LoadJson instance;
 
     private void Awake()
     {
-        /*createMap = GameObject.Find("MapMaker").GetComponent<CreateMap>();
-        if (mapData.Count != 0)
-        {
-            foreach (MapData nowMapData in mapData)
-            {
-                canvas = transform.GetComponentInChildren<Canvas>();
-                Debug.Log("Scroll View/Viewport/Content/MapButtons(Clone)/" + nowMapData.mapName);
-                canvas.transform.Find("Scroll View/Viewport/Content/MapButtons(Clone)/" + nowMapData.mapName).GetComponent<Button>().onClick.AddListener(() => { returnMapData(nowMapData); });
-            }
-        }*/
+        if (instance != null)
+            Destroy(gameObject);
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+        LoadStart();
+        //createMap = GameObject.Find("MapMaker").GetComponent<CreateMap>();
+        //if (mapData.Count != 0)
+        //{
+        //    foreach (MapData nowMapData in mapData)
+        //    {
+        //        canvas = transform.GetComponentInChildren<Canvas>();
+        //        Debug.Log("Scroll View/Viewport/MyMaps/MapButtons(Clone)/" + nowMapData.mapName);
+        //        canvas.transform.Find("Scroll View/Viewport/MyMaps/MapButtons(Clone)/" + nowMapData.mapName).GetComponent<Button>().onClick.AddListener(() => { returnMapData(nowMapData); });
+        //    }
+        //}
     }
 
     public void LoadStart()
     {
-        Debug.Log(PlayerEMail);
-        Debug.Log("http://13.125.40.125:8080/member/game/" + PlayerEMail);
-        string requestMapID = "http://13.125.40.125:8080/member/game/" + "s21066@gsm.hs.kr";
+        Debug.Log(GameManager.instance.PlayerEmail);
+        Debug.Log("http://13.125.40.125:8080/member/game/" + GameManager.instance.PlayerEmail);
+        string requestMapID = "http://13.125.40.125:8080/member/game/" + GameManager.instance.PlayerEmail;
+        Debug.Log("http://13.125.40.125:8080/member/game/makeandmaze@gmail.com");
         Debug.Log(requestMapID);
         StartCoroutine(GetRequest(requestMapID));
     }
 
-    public void GetContent()
-    {
-        
-    }
-
     IEnumerator GetRequest(string uri)
     {
-        Debug.Log("ø‰√ª∫∏≥ø "+uri);
+        Debug.Log("ø‰√ª∫∏≥ø " + uri);
+
 
         UnityWebRequest handler = UnityWebRequest.Get(uri);
+
+        yield return handler.Send();
 
         Debug.Log(handler.downloadHandler.text);
 
@@ -73,13 +74,11 @@ public class LoadJson : MonoBehaviour
             mData.SetJsonData(jo);
 
             GameManager.instance.mapDataDict.Add(mData.mapId, mData);
-
-            Debug.Log(GameManager.instance.mapDataDict.Count);
         }
 
         jAry = JArray.Parse(jObj["likes"].ToString());
 
-        foreach(JObject jo in jAry)
+        foreach (JObject jo in jAry)
         {
             MapData mData = new MapData();
 
@@ -89,43 +88,18 @@ public class LoadJson : MonoBehaviour
 
             Debug.Log(GameManager.instance.likesDataDict.Count);
         }
-
-        //yield return handler.SendWebRequest();
+        SelectMapController.instance.CreateMyMapButton();
+        SelectMapController.instance.CreatLikeMapButton();
         yield return null;
-        //Debug.Log(jObj);
-
-
-        /*using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
-        {
-            // Request and wait for the desired page.
-            Debug.Log("ø‰√ªø»");
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
-
-            switch (webRequest.result)
-            {
-                case UnityWebRequest.Result.ConnectionError:
-                case UnityWebRequest.Result.DataProcessingError:
-                    Debug.LogError(pages[page] + ": Error: " + webRequest.error);
-                    break;
-                case UnityWebRequest.Result.ProtocolError:
-                    Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
-                    break;
-                case UnityWebRequest.Result.Success:
-                    string text = webRequest.downloadHandler.text;
-                    Debug.Log(pages[page] + ":\nReceived: " + text.Replace("\\",""));
-                    
-                    mapData.Add(JsonUtility.FromJson<MapData>(webRequest.downloadHandler.text));
-                    SceneManager.LoadScene("MapSelectScene");
-                    break;
-                }
-        }*/
     }
 
-    IEnumerator GetRequest_Content(int mapId)
+    public IEnumerator GetRequest_Content(int mapId)
     {
+        Debug.Log("Ω««‡µ ?2");
         UnityWebRequest www = UnityWebRequest.Get("http://13.125.40.125:8080/map/getMap/" + mapId);
+        Debug.Log("http://13.125.40.125:8080/map/getMap/" + mapId);
         yield return www.Send();
+        Debug.Log("Ω««‡µ ?3");
 
         string a = www.downloadHandler.text;
 
@@ -153,19 +127,19 @@ public class LoadJson : MonoBehaviour
 
             Debug.Log(block.kind);
 
-            Blocks.Add(block);
+            GameManager.instance.Blocks.Add(block);
         }
-
         yield return null;
     }
 
-    void returnMapData(MapData mapData)
-    {
-        Debug.Log(mapData.mapName);
-        createMap.clickButton(mapData);
-    }
+    //void returnMapData(MapData mapData)
+    //{
+    //    Debug.Log(mapData.mapName);
+    //    createMap.clickButton(mapData);
+    //}
 }
 
+#region Json Class
 [System.Serializable]
 public class Block : TableBase
 {
@@ -183,7 +157,7 @@ public class Block : TableBase
         mapId = Int32.Parse(key);
         kind = info["kind"].Value<int>();
         x = info["x"].Value<float>();
-            y = info["y"].Value<float>();
+        y = info["y"].Value<float>();
         x2 = info["x2"].Value<float>();
         y2 = info["y2"].Value<float>();
     }
@@ -221,8 +195,9 @@ public class TableBase
     }
 }
 
-public class User 
+public class User
 {
     public List<MapData> user_map_datas = new List<MapData>();
     public List<MapData> user_like_map_datas = new List<MapData>();
 }
+#endregion
