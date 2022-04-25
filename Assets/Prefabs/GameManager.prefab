@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2432648287333781473}
   - component: {fileID: 2944993486457768474}
+  - component: {fileID: 206978236}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -27,7 +28,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 497.95615, y: 1599.8005, z: -7.977607}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,4 +44,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a82e9e2c64f9f24887f71dd92d98cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 5031401136956747711, guid: 23ffb0806b9d88e49bf7c5e22c6b9a4f, type: 3}
+  PlayerEmail: 
+  Blocks: []
+--- !u!114 &206978236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2432648287333781475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dca11fddd46f9d0469d1ed0db870d837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapdata:
+    mapId: 0
+    mapName: 
+    mapCode: 
+    img: 
+    userName: 

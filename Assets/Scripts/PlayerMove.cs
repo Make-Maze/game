@@ -35,7 +35,6 @@ public class PlayerMove : MonoBehaviour
         //gameOverScreen.SetActive(true);
     }
 
-
     IEnumerator DecreaseSpeed(float minusSpeed)
     {
         yield return new WaitForSeconds(5);

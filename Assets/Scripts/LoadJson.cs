@@ -22,8 +22,6 @@ public class LoadJson : MonoBehaviour
         if (instance != null)
             Destroy(gameObject);
         instance = this;
-        DontDestroyOnLoad(gameObject);
-        LoadStart();
         //createMap = GameObject.Find("MapMaker").GetComponent<CreateMap>();
         //if (mapData.Count != 0)
         //{
@@ -67,6 +65,8 @@ public class LoadJson : MonoBehaviour
 
         jAry = JArray.Parse(jObj["maps"].ToString());
 
+        GameManager.instance.mapDataDict.Clear();
+        GameManager.instance.likesDataDict.Clear();
         foreach (JObject jo in jAry)
         {
             MapData mData = new MapData();
@@ -88,9 +88,7 @@ public class LoadJson : MonoBehaviour
 
             Debug.Log(GameManager.instance.likesDataDict.Count);
         }
-        SelectMapController.instance.CreateMyMapButton();
-        SelectMapController.instance.CreatLikeMapButton();
-        yield return null;
+        SceneManager.LoadScene("MapSelectScene");
     }
 
     public IEnumerator GetRequest_Content(int mapId)
@@ -112,6 +110,8 @@ public class LoadJson : MonoBehaviour
 
         JObject jSelectMap = new JObject();
 
+        GameManager.instance.Blocks.Clear();
+
         foreach (KeyValuePair<string, JToken> i in jObj)
         {
             jSelectMap = jObj[i.Key].ToObject<JObject>();
@@ -125,10 +125,9 @@ public class LoadJson : MonoBehaviour
 
             block.SetJsonData(jSelectMap["mapId"].Value<string>(), value);
 
-            Debug.Log(block.kind);
-
             GameManager.instance.Blocks.Add(block);
         }
+        Debug.Log(GameManager.instance.Blocks.Count);
         yield return null;
     }
 

@@ -26,6 +26,8 @@ public class SelectMapController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        CreateMyMapButton();
+        CreatLikeMapButton();
     }
 
     public void CreatLikeMapButton()

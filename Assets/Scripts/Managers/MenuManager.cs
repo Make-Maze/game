@@ -12,6 +12,15 @@ public class MenuManager : MonoBehaviour
     public TMP_InputField InputEmail;
     public GameObject PlayPanel;
 
+    private void Start()
+    {
+        if (GameManager.instance.PlayerEmail.Length != 0)
+        {
+            LoginPanel.SetActive(false);
+            PlayPanel.SetActive(true);
+        }
+    }
+
     public void LoginButton()
     {
         InputEmailPanel.SetActive(true);
@@ -24,26 +33,12 @@ public class MenuManager : MonoBehaviour
         Debug.Log(GameManager.instance.PlayerEmail);
         LoginPanel.SetActive(false);
         PlayPanel.SetActive(true);
-    }
-
-    public void StartButton()
-    {
-        SceneManager.LoadScene("PlayScene");
+        InputEmailPanel.SetActive(false);
     }
 
     public void MapSelectButton()
     {
-        SceneManager.LoadScene("MapSelectScene");
-    }
-
-    public void SettingButton()
-    {
-        settingScreen.SetActive(true);
-    }
-
-    public void CloseSettingButton()
-    {
-        settingScreen.SetActive(false);
+        LoadJson.instance.LoadStart();
     }
 
     public void ExitButton()

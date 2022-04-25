@@ -27,7 +27,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.4987557, y: -4.374258, z: -0.05990668}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,7 +46,7 @@ MonoBehaviour:
   creatingObject: {fileID: 0}
   gameObjects:
   - {fileID: 0}
-  - {fileID: 8015689677765306990, guid: 91c62789caa53ad409831cb9b112ee2e, type: 3}
+  - {fileID: 8738938274123473077, guid: 4e67a309189d0fb41883afc49b69747a, type: 3}
   - {fileID: 1532088626041638652, guid: d75128daf785b4b4280e53537eeb0940, type: 3}
   - {fileID: 6021513788648452571, guid: 9aac9b28c40cf7c4e87c466ed8c0193f, type: 3}
   - {fileID: 1751018300075444757, guid: 73f1d7d22db904143856a9ca6f0308c6, type: 3}
@@ -145,3 +144,4 @@ MonoBehaviour:
   - {fileID: 2866723999486639991, guid: 71c5e4ca95d8fd94ba6f7819c09b084a, type: 3}
   - {fileID: 9171639925177018869, guid: 8842a7f80a130614ab034f0d577cf095, type: 3}
   - {fileID: 7702827614430313735, guid: 31932098390a7e546aa260ec1bad7f59, type: 3}
+  Walls: {fileID: 0}

@@ -9,6 +9,7 @@ public class GetToGoal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Time.timeScale = 0;
         ClearScreen.SetActive(true);
     }
 }

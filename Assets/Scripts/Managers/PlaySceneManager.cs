@@ -7,6 +7,7 @@ public class PlaySceneManager : MonoBehaviour
 {
     public void GoToMenuButton()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("MenuScene");
     }
 }
