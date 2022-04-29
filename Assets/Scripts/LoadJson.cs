@@ -63,36 +63,56 @@ public class LoadJson : MonoBehaviour
 
         JArray jAry = new JArray();
 
-        jAry = JArray.Parse(jObj["maps"].ToString());
-
-        GameManager.instance.mapDataDict.Clear();
-        GameManager.instance.likesDataDict.Clear();
-        foreach (JObject jo in jAry)
+        switch (handler.result)
         {
-            MapData mData = new MapData();
+            case UnityWebRequest.Result.ConnectionError:
+            case UnityWebRequest.Result.DataProcessingError:
+                GetRequest(uri);
+                break;
+            case UnityWebRequest.Result.ProtocolError:
+                GetRequest(uri);
+                break;
+            case UnityWebRequest.Result.Success:
+                jAry = JArray.Parse(jObj["maps"].ToString());
 
-            mData.SetJsonData(jo);
+                GameManager.instance.mapDataDict.Clear();
+                GameManager.instance.likesDataDict.Clear();
+                foreach (JObject jo in jAry)
+                {
+                    MapData mData = new MapData();
 
-            GameManager.instance.mapDataDict.Add(mData.mapId, mData);
+                    mData.SetJsonData(jo);
+
+                    GameManager.instance.mapDataDict.Add(mData.mapId, mData);
+                }
+
+                jAry = JArray.Parse(jObj["likes"].ToString());
+
+                foreach (JObject jo in jAry)
+                {
+                    MapData mData = new MapData();
+
+                    mData.SetJsonData(jo);
+
+                    GameManager.instance.likesDataDict.Add(mData.mapId, mData);
+
+                    Debug.Log(GameManager.instance.likesDataDict.Count);
+                }
+                SceneManager.LoadScene("MapSelectScene");
+
+                break;
         }
 
-        jAry = JArray.Parse(jObj["likes"].ToString());
-
-        foreach (JObject jo in jAry)
-        {
-            MapData mData = new MapData();
-
-            mData.SetJsonData(jo);
-
-            GameManager.instance.likesDataDict.Add(mData.mapId, mData);
-
-            Debug.Log(GameManager.instance.likesDataDict.Count);
-        }
-        SceneManager.LoadScene("MapSelectScene");
     }
 
-    public IEnumerator GetRequest_Content(int mapId)
+    public UnityWebRequest.Result GetSuccess()
     {
+        return UnityWebRequest.Result.Success;
+    }
+
+    public IEnumerator GetRequest_Content(int mapId, UnityWebRequest.Result success)
+    {
+        GameManager.instance.Blocks.Clear();
         Debug.Log("½ÇÇàµÊ?2");
         UnityWebRequest www = UnityWebRequest.Get("http://13.125.40.125:8080/map/getMap/" + mapId);
         Debug.Log("http://13.125.40.125:8080/map/getMap/" + mapId);
@@ -110,25 +130,37 @@ public class LoadJson : MonoBehaviour
 
         JObject jSelectMap = new JObject();
 
-        GameManager.instance.Blocks.Clear();
-
-        foreach (KeyValuePair<string, JToken> i in jObj)
+        switch (www.result)
         {
-            jSelectMap = jObj[i.Key].ToObject<JObject>();
+            case UnityWebRequest.Result.ConnectionError:
+            case UnityWebRequest.Result.DataProcessingError:
+                GetRequest_Content(mapId, GetSuccess());
+                break;
+            case UnityWebRequest.Result.ProtocolError:
+                GetRequest_Content(mapId, GetSuccess());
+                break;
+            case UnityWebRequest.Result.Success:
+                foreach (KeyValuePair<string, JToken> i in jObj)
+                {
+                    jSelectMap = jObj[i.Key].ToObject<JObject>();
+                }
+
+                JArray jBlockAry = new JArray();
+                jBlockAry = JArray.Parse(jSelectMap["block"].ToString());
+                foreach (JObject value in jBlockAry)
+                {
+                    Block block = new Block();
+
+                    block.SetJsonData(jSelectMap["mapId"].Value<string>(), value);
+
+                    GameManager.instance.Blocks.Add(block);
+                }
+                Debug.Log(GameManager.instance.Blocks.Count);
+                SceneManager.LoadScene("PlayScene");
+                break;
         }
 
-        JArray jBlockAry = new JArray();
-        jBlockAry = JArray.Parse(jSelectMap["block"].ToString());
-        foreach (JObject value in jBlockAry)
-        {
-            Block block = new Block();
 
-            block.SetJsonData(jSelectMap["mapId"].Value<string>(), value);
-
-            GameManager.instance.Blocks.Add(block);
-        }
-        Debug.Log(GameManager.instance.Blocks.Count);
-        yield return null;
     }
 
     //void returnMapData(MapData mapData)

@@ -7,8 +7,26 @@ public class PlayerMove : MonoBehaviour
     private float moveX;
     private float moveY;
     public float originalSpeed = 5f;
-    public float moveSpeed=5f;
-    public GameObject gameOverScreen;
+    public float moveSpeed = 5f;
+    public float tpCoolDown = 0;
+
+    public float buffTime = 0;
+
+    //public PlaySceneManager psm;
+
+    private void Update()
+    {
+        if (buffTime > 0)
+        {
+            buffTime -= Time.deltaTime;
+            if (buffTime <= 0)
+                moveSpeed -= 2;
+        }
+        if (tpCoolDown > 0)
+        {
+            tpCoolDown -= Time.deltaTime;
+        }
+    }
 
     public void Move(Vector2 moveVec)
     {
@@ -19,25 +37,21 @@ public class PlayerMove : MonoBehaviour
         transform.Translate(vec);
     }
 
-    public void IncreaseSpeed(float plusSpeed)
+    public void IncreaseSpeed()
     {
         if (moveSpeed == originalSpeed)
         {
-        moveSpeed += plusSpeed;
-        StartCoroutine(DecreaseSpeed(plusSpeed));
+            moveSpeed = 7;
+            buffTime = 3;
         }
     }
 
     public void GameOver()
     {
-        Destroy(gameObject);
-        Instantiate(gameOverScreen);
-        //gameOverScreen.SetActive(true);
-    }
-
-    IEnumerator DecreaseSpeed(float minusSpeed)
-    {
-        yield return new WaitForSeconds(5);
-        moveSpeed -= minusSpeed;
+        if (gameObject != null)
+        {
+            transform.GetChild(1).gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 }

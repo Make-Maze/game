@@ -35,12 +35,16 @@ public class ButtonMapData : MonoBehaviour
         if (request.isNetworkError || request.isHttpError)
             Debug.Log(request.error);
         else
+        {
             rawImage.texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+            SelectMapController.instance.loadedImages++;
+        }
     }
 
     public void clickButton()
     {
-        StartCoroutine(LoadJson.instance.GetRequest_Content(mapData.mapId));
-        SceneManager.LoadScene("PlayScene");
+        Debug.Log("...");
+        SelectMapController.instance.MapLoading.SetActive(true);
+        StartCoroutine(LoadJson.instance.GetRequest_Content(mapData.mapId, LoadJson.instance.GetSuccess()));
     }
 }

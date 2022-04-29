@@ -15,7 +15,10 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        player = collision.transform;
-        player.position = new Vector2(targetPortal.position.x, targetPortal.position.y - 1);
+        if (player.gameObject.GetComponent<PlayerMove>().tpCoolDown <= 0&&collision.CompareTag("Player"))
+        {
+            player.position = new Vector2(targetPortal.position.x, targetPortal.position.y);
+            player.gameObject.GetComponent<PlayerMove>().tpCoolDown = 1;
+        }
     }
 }

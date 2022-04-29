@@ -18,14 +18,13 @@ public class CreateMap : MonoBehaviour
 
     public void clickButton(MapData mapData)
     {
-        StartCoroutine(LoadJson.instance.GetRequest_Content(mapData.mapId));
-        SceneManager.LoadScene("PlayScene");
+        StartCoroutine(LoadJson.instance.GetRequest_Content(mapData.mapId, LoadJson.instance.GetSuccess()));
     }
 
     public void MakeMap()
     {
         Debug.Log("¤±¤·¤«¤·¤©");
-        Debug.Log(GameManager.instance.Blocks.Count);
+        Debug.Log(GameManager.instance.Blocks.Count);   
         foreach (var block in GameManager.instance.Blocks)
         {
             Debug.Log(block.kind+"/"+ block.x+"/"+ block.y+"/"+ block.x2+"/"+ block.y2);
@@ -33,17 +32,21 @@ public class CreateMap : MonoBehaviour
             Vector3 blockLoc = new Vector3(block.x, block.y);
             if (block.kind == 9)
             {
+                Debug.Log("Æ÷Å»");
                 Vector3 blockLoc2 = new Vector3(block.x2, block.y2);
                 Transform portals = Instantiate(gameObjects[block.kind], new Vector3(0, 0), Quaternion.identity).GetComponent<Transform>();
                 portals.transform.SetParent(Walls.transform);
+                Debug.Log(blockLoc);
+                Debug.Log(blockLoc2);
                 portals.transform.GetChild(0).position = blockLoc;
                 portals.transform.GetChild(1).position = blockLoc2;
-                return;
+                Debug.Log(portals.transform.GetChild(0).position);
+                Debug.Log(portals.transform.GetChild(1).position);
+                continue;
             }
             Instantiate(gameObjects[block.kind], blockLoc, Quaternion.identity).GetComponent<Transform>();
             Transform creatingObject = Instantiate(gameObjects[block.kind], blockLoc, Quaternion.identity).GetComponent<Transform>();
             creatingObject.transform.SetParent(Walls.transform);
         }
     }
-
 }

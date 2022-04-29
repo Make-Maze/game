@@ -6,11 +6,14 @@ using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
-    public GameObject settingScreen;
+    public GameObject Loading;
+    public GameObject LoadingImage;
     public GameObject LoginPanel;
     public GameObject InputEmailPanel;
     public TMP_InputField InputEmail;
     public GameObject PlayPanel;
+
+    public int rot = 0;
 
     private void Start()
     {
@@ -18,6 +21,20 @@ public class MenuManager : MonoBehaviour
         {
             LoginPanel.SetActive(false);
             PlayPanel.SetActive(true);
+        }
+        LoadingImage = Loading.transform.GetChild(0).gameObject;
+    }
+
+    private void FixedUpdate()
+    {
+        if (Loading.activeSelf)
+        {
+            LoadingImage.transform.rotation = Quaternion.Euler(0, 0, rot);
+            rot--;
+            if (rot < -360)
+            {
+                rot = 0;
+            }
         }
     }
 
@@ -28,17 +45,28 @@ public class MenuManager : MonoBehaviour
 
     public void CloseInputButton()
     {
-        GameManager.instance.PlayerEmail = InputEmail.text;
-        Debug.Log(InputEmail.text);
-        Debug.Log(GameManager.instance.PlayerEmail);
-        LoginPanel.SetActive(false);
-        PlayPanel.SetActive(true);
-        InputEmailPanel.SetActive(false);
+        if (InputEmail.text.Length > 0 && InputEmail.text.Contains("@"))
+        {
+            GameManager.instance.PlayerEmail = InputEmail.text;
+            Debug.Log(InputEmail.text);
+            Debug.Log(GameManager.instance.PlayerEmail);
+            LoginPanel.SetActive(false);
+            PlayPanel.SetActive(true);
+            InputEmailPanel.SetActive(false);
+        }
     }
 
     public void MapSelectButton()
     {
+        Loading.SetActive(true);
         LoadJson.instance.LoadStart();
+    }
+
+    public void LogoutButton()
+    {
+        GameManager.instance.PlayerEmail = null;
+        PlayPanel.SetActive(false);
+        LoginPanel.SetActive(true);
     }
 
     public void ExitButton()

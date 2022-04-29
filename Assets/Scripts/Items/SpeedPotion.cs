@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class SpeedPotion : MonoBehaviour
 {
-    PlayerMove playerMove;
+    public PlayerMove playerMove;
+    public GameObject player;
 
     private void Start()
     {
-        playerMove = GameObject.Find("Player").GetComponent<PlayerMove>();
+        player = GameObject.Find("Player");
+        playerMove = player.GetComponent<PlayerMove>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (playerMove.moveSpeed == playerMove.originalSpeed)
+        Debug.Log(playerMove.moveSpeed);
+        Debug.Log(playerMove.originalSpeed);
+        if (playerMove.moveSpeed == playerMove.originalSpeed&&collision.CompareTag("Player"))
         {
-            playerMove.IncreaseSpeed(2);
-            Destroy(gameObject);
+            playerMove.IncreaseSpeed();
         }
+        Destroy(gameObject);
     }
 }

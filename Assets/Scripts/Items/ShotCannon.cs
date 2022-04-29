@@ -20,6 +20,8 @@ public class ShotCannon : MonoBehaviour
     IEnumerator ShootingPlayer()
     {
         yield return new WaitForSeconds(cooldown);
+        if (player == null)
+            player = FindObjectOfType<PlayerMove>().gameObject;
         if (player != null)
         {
             switch (direction)
